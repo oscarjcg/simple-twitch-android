@@ -36,7 +36,6 @@ class BrowseFragment : Fragment() {
          *
          * @return A new instance of fragment BrowseFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             BrowseFragment().apply {

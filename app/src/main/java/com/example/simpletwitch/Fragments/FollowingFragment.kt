@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.simpletwitch.Activities.MainActivity
+import com.example.simpletwitch.Adapters.FollowingAdapter
 import com.example.simpletwitch.R
 
 
@@ -15,6 +19,9 @@ import com.example.simpletwitch.R
  */
 class FollowingFragment : Fragment() {
 
+    private lateinit var following: RecyclerView
+
+    private lateinit var followingAdapter: FollowingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +32,25 @@ class FollowingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_following, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_following, container, false)
+        initView(view)
+
+        // Test
+        val data = ArrayList<String>()
+        data.add("C1")
+        data.add("C2")
+        data.add("C3")
+
+        followingAdapter = FollowingAdapter(data, activity as MainActivity)
+        following.layoutManager = LinearLayoutManager(activity)
+        following.adapter = followingAdapter
+
+        return view
+    }
+
+    fun initView(view: View) {
+        following = view.findViewById(R.id.following)
     }
 
     companion object {

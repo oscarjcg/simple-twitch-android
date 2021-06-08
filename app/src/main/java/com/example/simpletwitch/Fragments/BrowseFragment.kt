@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.example.simpletwitch.R
 
 
@@ -14,6 +15,7 @@ import com.example.simpletwitch.R
  * create an instance of this fragment.
  */
 class BrowseFragment : Fragment() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +28,18 @@ class BrowseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_browse, container, false)
+        val view = inflater.inflate(R.layout.fragment_browse, container, false)
+        initView(view)
+
+        // Load fragment
+        val fr = fragmentManager?.beginTransaction()
+        fr?.replace(R.id.fragmentContainer, CategoriesFragment.newInstance())
+        fr?.commit()
+
+        return view
+    }
+
+    private fun initView(view: View) {
     }
 
     companion object {

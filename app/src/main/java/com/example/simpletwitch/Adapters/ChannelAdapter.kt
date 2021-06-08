@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletwitch.Activities.MainActivity
 import com.example.simpletwitch.R
 
-class FollowingAdapter(private val data: ArrayList<String>, private val activity: MainActivity)
-    : RecyclerView.Adapter<FollowingAdapter.ViewHolder>() {
+class ChannelAdapter(private val data: ArrayList<String>, private val activity: MainActivity)
+    : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.name)

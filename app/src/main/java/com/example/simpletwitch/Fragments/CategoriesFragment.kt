@@ -8,20 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletwitch.Activities.MainActivity
-import com.example.simpletwitch.Adapters.ChannelAdapter
+import com.example.simpletwitch.Adapters.CategoryAdapter
 import com.example.simpletwitch.R
 
+class CategoriesFragment : Fragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FollowingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FollowingFragment : Fragment() {
-
-    private lateinit var following: RecyclerView
-
-    private lateinit var channelAdapter: ChannelAdapter
+    private lateinit var categoriesRv: RecyclerView
+    private lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +25,24 @@ class FollowingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-        val view = inflater.inflate(R.layout.fragment_following, container, false)
+        val view = inflater.inflate(R.layout.fragment_categories, container, false)
         initView(view)
 
         // Test
-        val data = ArrayList<String>()
-        data.add("C1")
-        data.add("C2")
-        data.add("C3")
+        val categories = ArrayList<String>()
+        categories.add("Cat 1")
+        categories.add("Cat 2")
 
-        channelAdapter = ChannelAdapter(data, activity as MainActivity)
-        following.layoutManager = LinearLayoutManager(activity)
-        following.adapter = channelAdapter
+        // Init category list
+        categoryAdapter = CategoryAdapter(categories, activity as MainActivity)
+        categoriesRv.layoutManager = LinearLayoutManager(activity)
+        categoriesRv.adapter = categoryAdapter
 
         return view
     }
 
-    fun initView(view: View) {
-        following = view.findViewById(R.id.following)
+    private fun initView(view: View) {
+        categoriesRv = view.findViewById(R.id.categoriesRv)
     }
 
     companion object {
@@ -58,11 +50,12 @@ class FollowingFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment FollowingFragment.
+         * @return A new instance of fragment CategoriesFragment.
          */
+        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-                FollowingFragment().apply {
+                CategoriesFragment().apply {
                     arguments = Bundle().apply {
                     }
                 }

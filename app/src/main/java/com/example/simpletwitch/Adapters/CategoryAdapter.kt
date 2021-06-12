@@ -8,10 +8,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.simpletwitch.Activities.MainActivity
+import com.example.simpletwitch.Models.Category
 import com.example.simpletwitch.R
 
-class CategoryAdapter(private val data: ArrayList<String>, private val activity: MainActivity)
+class CategoryAdapter(private val data: ArrayList<Category>, private val activity: MainActivity)
     : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -28,8 +30,15 @@ class CategoryAdapter(private val data: ArrayList<String>, private val activity:
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = data[position]
-        holder.image.setImageResource(R.drawable.ic_photo)
+
+        val category = data[position]
+        holder.name.text = category.name
+
+        Glide.with(holder.image)
+            .load(category.image)
+            .into(holder.image)
+
+
 
         holder.container.setOnClickListener {
             Toast.makeText(activity, "Category $position", Toast.LENGTH_SHORT).show()

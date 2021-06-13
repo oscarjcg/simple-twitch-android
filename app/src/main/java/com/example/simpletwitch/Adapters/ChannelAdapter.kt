@@ -8,10 +8,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.simpletwitch.Activities.MainActivity
+import com.example.simpletwitch.Models.Channel
 import com.example.simpletwitch.R
 
-class ChannelAdapter(private val data: ArrayList<String>, private val activity: MainActivity)
+class ChannelAdapter(private val data: ArrayList<Channel>, private val activity: MainActivity)
     : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,9 +31,18 @@ class ChannelAdapter(private val data: ArrayList<String>, private val activity: 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.name.text = data[position]
-        holder.preview.setImageResource(R.drawable.video_player)
-        holder.image.setImageResource(R.drawable.avatar)
+        var channel = data[position]
+
+        holder.name.text = channel.name
+        //holder.preview.setImageResource(R.drawable.video_player)
+        Glide.with(holder.preview)
+                .load(channel.preview)
+                .into(holder.preview)
+
+        //holder.image.setImageResource(R.drawable.avatar)
+        Glide.with(holder.image)
+                .load(channel.image)
+                .into(holder.image)
 
         holder.container.setOnClickListener {
             Toast.makeText(activity, "Channel $position", Toast.LENGTH_SHORT).show()

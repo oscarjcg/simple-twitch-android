@@ -18,15 +18,14 @@ import com.example.simpletwitch.ViewModels.ChannelViewModel
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FollowingFragment.newInstance] factory method to
+ * Use the [ChannelsFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FollowingFragment : Fragment() {
+class ChannelsFragment : Fragment() {
+    lateinit var channelsRv: RecyclerView
+    val model : ChannelViewModel by activityViewModels()
 
-    private lateinit var following: RecyclerView
-
-    private lateinit var channelAdapter: ChannelAdapter
-    private val model: ChannelViewModel by activityViewModels()
+    lateinit var channelsAdapter: ChannelAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,26 +36,24 @@ class FollowingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-        val view = inflater.inflate(R.layout.fragment_following, container, false)
+        val view = inflater.inflate(R.layout.fragment_channels, container, false)
         initView(view)
 
-        // Init channel list
-        val channels = ArrayList<Channel>()
-        channelAdapter = ChannelAdapter(channels, activity as MainActivity)
-        following.layoutManager = LinearLayoutManager(activity)
-        following.adapter = channelAdapter
+        var channels = ArrayList<Channel>()
+        channelsAdapter = ChannelAdapter(channels, activity as MainActivity)
+        channelsRv.layoutManager = LinearLayoutManager(activity)
+        channelsRv.adapter = channelsAdapter
 
-        model.channels.observe(viewLifecycleOwner, Observer { channels ->
-            channelAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity)
-            following.adapter = channelAdapter
+        model.channels.observe(viewLifecycleOwner, Observer<List<Channel>> { channels ->
+            channelsAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity)
+            channelsRv.adapter = channelsAdapter
         })
 
         return view
     }
 
-    fun initView(view: View) {
-        following = view.findViewById(R.id.following)
+    private fun initView(view: View) {
+        channelsRv = view.findViewById(R.id.channelsRv)
     }
 
     companion object {
@@ -64,11 +61,11 @@ class FollowingFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment FollowingFragment.
+         * @return A new instance of fragment ChannelsFragment.
          */
         @JvmStatic
         fun newInstance() =
-                FollowingFragment().apply {
+                ChannelsFragment().apply {
                     arguments = Bundle().apply {
                     }
                 }

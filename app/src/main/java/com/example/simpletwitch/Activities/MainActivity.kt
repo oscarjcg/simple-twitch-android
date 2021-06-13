@@ -2,6 +2,7 @@ package com.example.simpletwitch.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import androidx.viewpager2.widget.ViewPager2
 import com.example.simpletwitch.Adapters.NavAdapter
 import com.example.simpletwitch.R
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
         // Bind view

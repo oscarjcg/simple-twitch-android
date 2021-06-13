@@ -6,4 +6,7 @@
     <string name="following_tab">Following</string>
     <string name="discover_tab">Discover</string>
     <string name="browse_tab">Browse</string>
+
+    <string name="categories_tab">Categories</string>
+    <string name="live_channels_tab">Live Channels</string>
 </resources>

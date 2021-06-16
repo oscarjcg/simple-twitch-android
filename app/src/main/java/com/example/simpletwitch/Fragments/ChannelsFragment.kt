@@ -22,6 +22,7 @@ import com.example.simpletwitch.ViewModels.ChannelViewModel
  * create an instance of this fragment.
  */
 class ChannelsFragment : Fragment() {
+
     lateinit var channelsRv: RecyclerView
     val model : ChannelViewModel by activityViewModels()
 
@@ -30,6 +31,7 @@ class ChannelsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            model.useBigView = it.getBoolean(USE_BIG_VIEW, false)
         }
     }
 
@@ -40,12 +42,12 @@ class ChannelsFragment : Fragment() {
         initView(view)
 
         var channels = ArrayList<Channel>()
-        channelsAdapter = ChannelAdapter(channels, activity as MainActivity)
+        channelsAdapter = ChannelAdapter(channels, activity as MainActivity, model.useBigView)
         channelsRv.layoutManager = LinearLayoutManager(activity)
         channelsRv.adapter = channelsAdapter
 
         model.channels.observe(viewLifecycleOwner, Observer<List<Channel>> { channels ->
-            channelsAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity)
+            channelsAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity, model.useBigView)
             channelsRv.adapter = channelsAdapter
         })
 
@@ -57,6 +59,8 @@ class ChannelsFragment : Fragment() {
     }
 
     companion object {
+        const val USE_BIG_VIEW = "USE_BIG_VIEW"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -64,9 +68,10 @@ class ChannelsFragment : Fragment() {
          * @return A new instance of fragment ChannelsFragment.
          */
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(useBigView: Boolean = false) =
                 ChannelsFragment().apply {
                     arguments = Bundle().apply {
+                        putBoolean(USE_BIG_VIEW, useBigView)
                     }
                 }
     }

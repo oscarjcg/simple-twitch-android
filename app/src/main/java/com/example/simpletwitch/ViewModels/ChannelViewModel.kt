@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 
 class ChannelViewModel : ViewModel() {
     val channels = MutableLiveData<List<Channel>>()
+    var useBigView = false
 
     private val channelRepository = ChannelRepository()
 

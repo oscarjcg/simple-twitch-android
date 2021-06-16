@@ -13,7 +13,8 @@ import com.example.simpletwitch.Activities.MainActivity
 import com.example.simpletwitch.Models.Channel
 import com.example.simpletwitch.R
 
-class ChannelAdapter(private val data: ArrayList<Channel>, private val activity: MainActivity)
+class ChannelAdapter(private val data: ArrayList<Channel>, private val activity: MainActivity,
+    private val useBigView: Boolean = false)
     : RecyclerView.Adapter<ChannelAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,17 +22,23 @@ class ChannelAdapter(private val data: ArrayList<Channel>, private val activity:
         val container: ConstraintLayout = view.findViewById(R.id.container)
         val preview: ImageView = view.findViewById(R.id.preview)
         val image: ImageView = view.findViewById(R.id.image)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.channel_viewholder, parent, false)
+
+        val view: View = if (useBigView) {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.big_channel_viewholder, parent, false)
+        } else {
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.channel_viewholder, parent, false)
+        }
 
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var channel = data[position]
+        val channel = data[position]
 
         holder.name.text = channel.name
         //holder.preview.setImageResource(R.drawable.video_player)

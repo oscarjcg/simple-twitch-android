@@ -14,7 +14,7 @@ class BrowseNavAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            CHANNELS_POS -> ChannelsFragment.newInstance()
+            CHANNELS_POS -> ChannelsFragment.newInstance(true)
             CATEGORIES_POS -> CategoriesFragment.newInstance()
             else -> FollowingFragment.newInstance()
         }
@@ -22,7 +22,7 @@ class BrowseNavAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     companion object {
         const val NUM_PAGES = 2;
-        const val CHANNELS_POS = 0;
-        const val CATEGORIES_POS = 1;
+        const val CHANNELS_POS = 1;
+        const val CATEGORIES_POS = 0;
     }
 }

@@ -2,8 +2,8 @@ package com.example.simpletwitch.WebService
 
 import com.example.simpletwitch.Models.Category
 import com.example.simpletwitch.Models.Channel
-import retrofit2.http.GET
-import retrofit2.http.Headers
+import com.example.simpletwitch.Models.Comment
+import retrofit2.http.*
 
 interface WebService {
 
@@ -12,4 +12,10 @@ interface WebService {
 
     @GET("channels")
     suspend fun getChannels(): List<Channel>
+
+    @GET("comments/{channel_id}")
+    suspend fun getComments(@Path("channel_id") channelId: Int): List<Comment>
+
+    @POST("comments")
+    suspend fun createComment(@Body comment: Comment): Comment
 }

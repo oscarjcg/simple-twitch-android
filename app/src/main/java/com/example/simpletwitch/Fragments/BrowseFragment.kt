@@ -13,6 +13,7 @@ import com.example.simpletwitch.Adapters.NavAdapter
 import com.example.simpletwitch.R
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.fragment_browse.*
 
 
 /**
@@ -21,8 +22,6 @@ import com.google.android.material.tabs.TabLayoutMediator
  * create an instance of this fragment.
  */
 class BrowseFragment : Fragment() {
-    private lateinit var viewPager2: ViewPager2
-    private lateinit var navBar: TabLayout
 
     private lateinit var browseNavAdapter: BrowseNavAdapter
 
@@ -38,15 +37,17 @@ class BrowseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_browse, container, false)
-        initView(view)
 
-        // Bind view
-        initView(view)
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Init navigation with viewpager2
         browseNavAdapter = BrowseNavAdapter(activity as MainActivity)
-        viewPager2.adapter = browseNavAdapter
-        TabLayoutMediator(navBar, viewPager2) { tab, position ->
+        navViewPager2.adapter = browseNavAdapter
+        TabLayoutMediator(navBar, navViewPager2) { tab, position ->
             var name = getString(R.string.following_tab);
             when(position) {
                 BrowseNavAdapter.CATEGORIES_POS -> name = getString(R.string.categories_tab)
@@ -54,13 +55,9 @@ class BrowseFragment : Fragment() {
             }
             tab.text= name
         }.attach()
-
-        return view
     }
 
-    private fun initView(view: View) {
-        viewPager2 = view.findViewById(R.id.navViewPager2)
-        navBar = view.findViewById(R.id.navBar)
+    private fun initView() {
     }
 
     companion object {

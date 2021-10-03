@@ -14,6 +14,7 @@ import com.example.simpletwitch.Adapters.ChannelAdapter
 import com.example.simpletwitch.Models.Channel
 import com.example.simpletwitch.R
 import com.example.simpletwitch.ViewModels.ChannelViewModel
+import kotlinx.android.synthetic.main.fragment_channels.*
 
 
 /**
@@ -23,7 +24,6 @@ import com.example.simpletwitch.ViewModels.ChannelViewModel
  */
 class ChannelsFragment : Fragment() {
 
-    lateinit var channelsRv: RecyclerView
     val model : ChannelViewModel by activityViewModels()
 
     lateinit var channelsAdapter: ChannelAdapter
@@ -39,9 +39,13 @@ class ChannelsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_channels, container, false)
-        initView(view)
+        return view
+    }
 
-        var channels = ArrayList<Channel>()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val channels = ArrayList<Channel>()
         channelsAdapter = ChannelAdapter(channels, activity as MainActivity, model.useBigView)
         channelsRv.layoutManager = LinearLayoutManager(activity)
         channelsRv.adapter = channelsAdapter
@@ -50,12 +54,9 @@ class ChannelsFragment : Fragment() {
             channelsAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity, model.useBigView)
             channelsRv.adapter = channelsAdapter
         })
-
-        return view
     }
 
-    private fun initView(view: View) {
-        channelsRv = view.findViewById(R.id.channelsRv)
+    private fun initView() {
     }
 
     companion object {

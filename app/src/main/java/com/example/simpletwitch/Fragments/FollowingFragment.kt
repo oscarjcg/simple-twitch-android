@@ -14,6 +14,7 @@ import com.example.simpletwitch.Adapters.ChannelAdapter
 import com.example.simpletwitch.Models.Channel
 import com.example.simpletwitch.R
 import com.example.simpletwitch.ViewModels.ChannelViewModel
+import kotlinx.android.synthetic.main.fragment_following.*
 
 
 /**
@@ -22,8 +23,6 @@ import com.example.simpletwitch.ViewModels.ChannelViewModel
  * create an instance of this fragment.
  */
 class FollowingFragment : Fragment() {
-
-    private lateinit var following: RecyclerView
 
     private lateinit var channelAdapter: ChannelAdapter
     private val model: ChannelViewModel by activityViewModels()
@@ -37,9 +36,13 @@ class FollowingFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_following, container, false)
-        initView(view)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Init channel list
         val channels = ArrayList<Channel>()
@@ -51,12 +54,9 @@ class FollowingFragment : Fragment() {
             channelAdapter = ChannelAdapter(ArrayList(channels), activity as MainActivity)
             following.adapter = channelAdapter
         })
-
-        return view
     }
 
-    fun initView(view: View) {
-        following = view.findViewById(R.id.following)
+    fun initView() {
     }
 
     companion object {

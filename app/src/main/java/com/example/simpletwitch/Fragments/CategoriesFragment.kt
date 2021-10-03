@@ -17,13 +17,13 @@ import com.example.simpletwitch.Models.Category
 import com.example.simpletwitch.R
 import com.example.simpletwitch.Repositories.CategoryRepository
 import com.example.simpletwitch.ViewModels.CategoryViewModel
+import kotlinx.android.synthetic.main.fragment_categories.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CategoriesFragment : Fragment() {
 
-    private lateinit var categoriesRv: RecyclerView
     private lateinit var categoryAdapter: CategoryAdapter
     private val model: CategoryViewModel by activityViewModels()
 
@@ -37,7 +37,12 @@ class CategoriesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
-        initView(view)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         // Empty category list
         val categories = ArrayList<Category>()
@@ -52,12 +57,9 @@ class CategoriesFragment : Fragment() {
             categoryAdapter = CategoryAdapter(ArrayList(categories), activity as MainActivity)
             categoriesRv.adapter = categoryAdapter
         })
-
-        return view
     }
 
-    private fun initView(view: View) {
-        categoriesRv = view.findViewById(R.id.categoriesRv)
+    private fun initView() {
     }
 
     companion object {

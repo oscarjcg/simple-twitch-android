@@ -3,6 +3,7 @@ package com.example.simpletwitch.WebService
 import com.example.simpletwitch.Models.Category
 import com.example.simpletwitch.Models.Channel
 import com.example.simpletwitch.Models.Comment
+import com.example.simpletwitch.Models.SearchResult
 import retrofit2.http.*
 
 interface WebService {
@@ -18,4 +19,7 @@ interface WebService {
 
     @POST("comments")
     suspend fun createComment(@Body comment: Comment): Comment
+
+    @GET("search/{term}")
+    suspend fun getSearchResults(@Path("term") term: String): List<SearchResult>
 }
